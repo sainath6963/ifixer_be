@@ -138,8 +138,14 @@ describe('Instagram Reel publishing (e2e)', () => {
     expect(
       body<ReelsPage>(await request(server).get(publicPath).query({ page: 2 })).items,
     ).toHaveLength(1);
+    const all = body<ReelsPage>(
+      await request(server).get(publicPath).query({ page: 1, limit: 100 }).expect(200),
+    );
+    expect(all.items).toHaveLength(7);
+    expect(all.totalPages).toBe(1);
     expect(body<ReelsPage>(await owner.agent.get(adminPath)).total).toBe(8);
     await request(server).get(publicPath).query({ page: -1 }).expect(400);
+    await request(server).get(publicPath).query({ limit: 101 }).expect(400);
   });
   it('rejects non-Reel URLs, executable content, credentials and misleading hosts', async () => {
     for (const url of [

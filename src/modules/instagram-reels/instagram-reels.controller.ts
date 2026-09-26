@@ -28,7 +28,7 @@ export class InstagramReelsController {
   @Get()
   @Header('Cache-Control', 'no-store')
   list(@Query() query: InstagramReelsQueryDto): Promise<ReelsPage> {
-    return this.reels.list(query.page);
+    return this.reels.list(query.page, false, query.limit);
   }
 }
 @Controller('admin/repair/reels')
@@ -39,7 +39,7 @@ export class AdminInstagramReelsController {
   @Get()
   @Header('Cache-Control', 'private, no-store')
   list(@Query() query: InstagramReelsQueryDto): Promise<ReelsPage> {
-    return this.reels.list(query.page, true);
+    return this.reels.list(query.page, true, query.limit);
   }
   @Post()
   create(

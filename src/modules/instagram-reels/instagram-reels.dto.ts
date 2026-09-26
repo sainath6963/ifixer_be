@@ -1,5 +1,14 @@
 import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsInt, IsString, Max, MaxLength, Min, ValidateIf } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  ValidateIf,
+} from 'class-validator';
 const trim = ({ value }: { value: unknown }): unknown =>
   typeof value === 'string' ? value.trim() : value;
 export class SaveInstagramReelDto {
@@ -14,4 +23,5 @@ export class SaveInstagramReelDto {
 }
 export class InstagramReelsQueryDto {
   @Type(() => Number) @IsInt() @Min(1) @Max(100000) page = 1;
+  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(100) limit?: number;
 }

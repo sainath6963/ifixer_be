@@ -54,9 +54,9 @@ export class InstagramReelsService {
     @InjectModel(InstagramReel.name) private readonly reels: Model<InstagramReel>,
     private readonly audit: AuthAuditService,
   ) {}
-  async list(page: number, admin = false): Promise<ReelsPage> {
+  async list(page: number, admin = false, requestedLimit?: number): Promise<ReelsPage> {
     const filter = admin ? {} : { active: true };
-    const limit = admin ? 20 : 6;
+    const limit = requestedLimit ?? (admin ? 20 : 6);
     const [rows, total] = await Promise.all([
       this.reels
         .find(filter)
