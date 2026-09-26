@@ -113,15 +113,31 @@ try {
   );
   if (process.env.INSTAGRAM_REEL_SMOKE_URL) await delay(6000);
   for (const width of [360, 390, 768, 1440]) {
-    await page.setViewportSize({ width, height: 950 });
+    await page.setViewportSize({ width, height: 1400 });
     await section.scrollIntoViewIfNeeded();
+    if (process.env.INSTAGRAM_REEL_SMOKE_URL) {
+      const frame = page.frames().find((frame) => frame.url().startsWith(reelUrl));
+      if (frame)
+        await expect
+          .poll(async () => {
+            const outer = await section.locator('iframe').evaluate((el) => el.clientHeight);
+            const inner = await frame.evaluate(() => document.body.scrollHeight);
+            return outer >= inner;
+          })
+          .toBe(true);
+    }
     assert.equal(
       await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
       true,
     );
-    await section.screenshot({
+    await delay(500);
+    await page.evaluate(() => {
+      const section = document.getElementById('workshop-reels');
+      window.scrollTo(0, section.getBoundingClientRect().top + window.scrollY);
+    });
+    await page.screenshot({
       path: resolve(evidence, `live-workshop-${width}.png`),
-      animations: 'disabled',
+      animations: 'allow',
     });
   }
   const providerFrame = page.frames().find((frame) => frame.url().startsWith(reelUrl));
@@ -152,14 +168,14 @@ try {
   assert.equal(publicRows.items[0].id, reelId);
   assert.equal(publicRows.items[0].sortOrder, 5);
   for (const width of [360, 1440]) {
-    await page.setViewportSize({ width, height: 950 });
+    await page.setViewportSize({ width, height: 1400 });
     await expect
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
       .toBe(true);
     await page.screenshot({
       path: resolve(evidence, `live-admin-${width}.png`),
       fullPage: true,
-      animations: 'disabled',
+      animations: 'allow',
     });
   }
   console.log(
