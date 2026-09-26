@@ -1,0 +1,56 @@
+name: rich-culture-backend
+
+services:
+  mongo:
+    image: mongo:8.0
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - rich_culture_mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand({ ping: 1 }).ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  mongo-init:
+    image: mongo:8.0
+    depends_on:
+      mongo:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        mongosh --host mongo:27017 --quiet --eval '
+          try {
+            const status = rs.status();
+            if (status.ok === 1) { quit(0); }
+          } catch (error) {
+            if (error.codeName !== "NotYetInitialized") { throw error; }
+          }
+          rs.initiate({ _id: "rs0", members: [{ _id: 0, host: "mongo:27017" }] });
+        '
+        until mongosh --host mongo:27017 --quiet --eval 'quit(db.hello().isWritablePrimary ? 0 : 1)'; do
+          sleep 1
+        done
+    restart: "no"
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - rich_culture_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  rich_culture_mongo_data:
+  rich_culture_redis_data:
