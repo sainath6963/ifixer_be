@@ -162,7 +162,7 @@ describe('Admin business analytics (e2e)', () => {
     await browser
       .get('/api/v1/admin/analytics/export.csv?dateFrom=2024-02-10&dateTo=2024-02-10')
       .expect('Content-Type', /text\/csv/)
-      .expect('Content-Disposition', /rich-culture-analytics-2024-02-10-to-2024-02-10\.csv/)
+      .expect('Content-Disposition', /ifixer-analytics-2024-02-10-to-2024-02-10\.csv/)
       .expect(200)
       .expect(({ text }: request.Response) => {
         expect(text).toContain('"2024-02-10","1000.00","250.00","750.00"');

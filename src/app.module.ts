@@ -34,6 +34,7 @@ import { ReturnRequestModule } from './modules/returns/return-request.module';
 import { StorefrontCatalogModule } from './modules/storefront-catalog/storefront-catalog.module';
 import { SystemModule } from './modules/system/system.module';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
+import { WebsiteInsightsModule } from './modules/website-insights/website-insights.module';
 
 @Module({
   imports: [
@@ -54,7 +55,7 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
           pinoHttp: {
             level,
             customProps: (): { service: string; release: string; environment: string } => ({
-              service: 'rich-culture-api',
+              service: 'ifixer-api',
               release,
               environment,
             }),
@@ -133,6 +134,7 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
     RepairBookingModule,
     RepairJobModule,
     ObservabilityModule,
+    WebsiteInsightsModule,
   ],
   providers: [
     {

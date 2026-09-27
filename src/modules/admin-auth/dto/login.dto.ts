@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class AdminLoginDto {
-  @ApiProperty({ example: 'owner@richculture.in' })
+  @ApiProperty({ example: 'owner@ifixerpune.in' })
   @IsEmail()
   @MaxLength(254)
   email!: string;

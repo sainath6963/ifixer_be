@@ -40,7 +40,7 @@ describe('Application foundation (e2e)', () => {
     expect(response.headers['x-request-id']).toBe('e2e-request-1');
     const body = response.body as unknown as Record<string, unknown>;
     expect(body).toMatchObject({
-      name: 'Rich Culture API',
+      name: 'iFixer API',
       version: '0.1.0',
       environment: 'test',
     });
@@ -82,10 +82,10 @@ describe('Application foundation (e2e)', () => {
       .expect(200);
 
     expect(response.headers['content-type']).toContain('text/plain');
-    expect(response.text).toContain('# TYPE rich_culture_build_info gauge');
+    expect(response.text).toContain('# TYPE ifixer_build_info gauge');
     expect(response.text).toContain('release="test-suite"');
-    expect(response.text).toContain('# TYPE rich_culture_queue_jobs gauge');
-    expect(response.text).toContain('# TYPE rich_culture_notification_records gauge');
+    expect(response.text).toContain('# TYPE ifixer_queue_jobs gauge');
+    expect(response.text).toContain('# TYPE ifixer_notification_records gauge');
     expect(response.text).not.toContain('e2e-request-1');
   });
 
@@ -96,7 +96,7 @@ describe('Application foundation (e2e)', () => {
       paths: Record<string, unknown>;
     };
 
-    expect(body.info.title).toBe('Rich Culture API');
+    expect(body.info.title).toBe('iFixer API');
     expect(body.paths['/health/ready']).toBeDefined();
     expect(body.paths['/admin/health/ready']).toBeDefined();
     expect(body.paths['/metrics']).toBeUndefined();

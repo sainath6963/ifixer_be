@@ -80,7 +80,7 @@ export class MobileNotificationTemplateService {
       channel: NotificationChannel.Sms,
       templateKey: event.eventType,
       recipient: challenge.targetMobile,
-      text: `Your Rich Culture verification code is ${otp}. It expires in ${expiresInMinutes} minutes. Do not share this code.`,
+      text: `Your iFixer verification code is ${otp}. It expires in ${expiresInMinutes} minutes. Do not share this code.`,
     };
   }
 
@@ -104,7 +104,7 @@ export class MobileNotificationTemplateService {
       .replace('RETURN_REQUEST_', '')
       .replaceAll('_', ' ')
       .toLowerCase();
-    const text = `Rich Culture: ${returnNumber} for order ${orderNumber} is ${status}. View your account for details.`;
+    const text = `iFixer: ${returnNumber} for order ${orderNumber} is ${status}. View your account for details.`;
     return this.customerMessages(customer, event.eventType, text);
   }
 
@@ -155,7 +155,7 @@ export class MobileNotificationTemplateService {
   }
 
   private orderText(event: OutboxEventDocument, order: OrderDocument): string {
-    const prefix = `Rich Culture: order ${order.orderNumber}`;
+    const prefix = `iFixer: order ${order.orderNumber}`;
     switch (event.eventType) {
       case 'ORDER_PAYMENT_CAPTURED':
         return `${prefix} is confirmed. Payment received.`;

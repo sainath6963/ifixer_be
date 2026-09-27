@@ -38,7 +38,7 @@ export class NotificationProcessor extends WorkerHost {
       };
       for (const [outcome, count] of Object.entries(outcomes)) {
         this.metrics.incrementCounter(
-          'rich_culture_notification_sweep_records_total',
+          'ifixer_notification_sweep_records_total',
           'Records handled by the notification sweep outcome',
           { outcome },
           count,

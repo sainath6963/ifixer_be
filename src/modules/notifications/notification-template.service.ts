@@ -105,8 +105,8 @@ export class NotificationTemplateService {
     ).toString();
     const name = customer.name?.trim() || 'there';
     const detail = `${productName} in ${variantTitle} is available again. Stock can move quickly and is not reserved by this alert.`;
-    const text = `Hello ${name},\n\nBack in stock\n\n${detail}\n\n${productUrl}\n\nRich Culture`;
-    const html = `<!doctype html><html><body><p>Hello ${this.escape(name)},</p><h1>Back in stock</h1><p>${this.escape(detail)}</p><p><a href="${this.escape(productUrl)}">View ${this.escape(productName)}</a></p><p>Rich Culture</p></body></html>`;
+    const text = `Hello ${name},\n\nBack in stock\n\n${detail}\n\n${productUrl}\n\niFixer`;
+    const html = `<!doctype html><html><body><p>Hello ${this.escape(name)},</p><h1>Back in stock</h1><p>${this.escape(detail)}</p><p><a href="${this.escape(productUrl)}">View ${this.escape(productName)}</a></p><p>iFixer</p></body></html>`;
     return {
       templateKey: event.eventType,
       recipient: customer.email.trim().toLowerCase(),
@@ -292,10 +292,10 @@ export class NotificationTemplateService {
       return this.actionEmail(
         event.eventType,
         customer.email,
-        'Verify your Rich Culture email',
+        'Verify your iFixer email',
         name,
         'Verify your email',
-        'Confirm this email address for your Rich Culture account. This secure link can be used once and expires automatically.',
+        'Confirm this email address for your iFixer account. This secure link can be used once and expires automatically.',
         this.customerActionUrl('/verify-email', rawToken),
         'Verify email',
       );
@@ -304,7 +304,7 @@ export class NotificationTemplateService {
       return this.actionEmail(
         event.eventType,
         action.targetEmail,
-        'Confirm your new Rich Culture email',
+        'Confirm your new iFixer email',
         name,
         'Confirm your new email',
         'Confirm this new email address. After confirmation, all current sessions will be signed out for your security.',
@@ -315,7 +315,7 @@ export class NotificationTemplateService {
     return this.actionEmail(
       event.eventType,
       customer.email,
-      'Reset your Rich Culture password',
+      'Reset your iFixer password',
       name,
       'Reset your password',
       'Use this one-time link to choose a new password. It expires automatically.',
@@ -411,8 +411,8 @@ export class NotificationTemplateService {
     heading: string,
     detail: string,
   ): RenderedEmail {
-    const text = `Hello ${name},\n\n${heading}\n\n${detail}\n\nRich Culture`;
-    const html = `<!doctype html><html><body><p>Hello ${this.escape(name)},</p><h1>${this.escape(heading)}</h1><p>${this.escape(detail)}</p><p>Rich Culture</p></body></html>`;
+    const text = `Hello ${name},\n\n${heading}\n\n${detail}\n\niFixer`;
+    const html = `<!doctype html><html><body><p>Hello ${this.escape(name)},</p><h1>${this.escape(heading)}</h1><p>${this.escape(detail)}</p><p>iFixer</p></body></html>`;
     return { templateKey, recipient: recipient.trim().toLowerCase(), subject, text, html };
   }
 
@@ -426,8 +426,8 @@ export class NotificationTemplateService {
     actionUrl: string,
     actionLabel: string,
   ): RenderedEmail {
-    const text = `Hello ${name},\n\n${heading}\n\n${detail}\n\n${actionUrl}\n\nIf you did not request this, you can ignore this email.\n\nRich Culture`;
-    const html = `<!doctype html><html><body><p>Hello ${this.escape(name)},</p><h1>${this.escape(heading)}</h1><p>${this.escape(detail)}</p><p><a href="${this.escape(actionUrl)}">${this.escape(actionLabel)}</a></p><p>If you did not request this, you can ignore this email.</p><p>Rich Culture</p></body></html>`;
+    const text = `Hello ${name},\n\n${heading}\n\n${detail}\n\n${actionUrl}\n\nIf you did not request this, you can ignore this email.\n\niFixer`;
+    const html = `<!doctype html><html><body><p>Hello ${this.escape(name)},</p><h1>${this.escape(heading)}</h1><p>${this.escape(detail)}</p><p><a href="${this.escape(actionUrl)}">${this.escape(actionLabel)}</a></p><p>If you did not request this, you can ignore this email.</p><p>iFixer</p></body></html>`;
     return { templateKey, recipient: recipient.trim().toLowerCase(), subject, text, html };
   }
 

@@ -161,7 +161,7 @@ export class AdminAnalyticsService {
       ]),
     ];
     return {
-      filename: `rich-culture-analytics-${overview.period.dateFrom}-to-${overview.period.dateTo}.csv`,
+      filename: `ifixer-analytics-${overview.period.dateFrom}-to-${overview.period.dateTo}.csv`,
       body: `\uFEFF${rows.map((row) => row.map((cell) => this.csvCell(cell)).join(',')).join('\r\n')}\r\n`,
     };
   }

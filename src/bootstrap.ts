@@ -88,8 +88,8 @@ export function configureApplication(app: NestExpressApplication): void {
 
   if (swaggerEnabled) {
     const documentConfig = new DocumentBuilder()
-      .setTitle('Rich Culture API')
-      .setDescription('Customer and admin API for the Rich Culture store')
+      .setTitle('iFixer API')
+      .setDescription('Customer and admin API for the iFixer store')
       .setVersion('0.1.0')
       .addServer(`/${apiPrefix}`)
       .addCookieAuth(ADMIN_ACCESS_COOKIE, undefined, ADMIN_ACCESS_SECURITY)

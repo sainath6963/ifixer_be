@@ -1,4 +1,5 @@
 import { instagramReelsMigration } from './027-instagram-reels';
+import { websiteInsightsMigration } from './028-website-insights';
 import { repairBillingMigration } from './026-repair-billing';
 import { repairInventoryMigration } from './025-repair-inventory';
 import { repairJobsMigration } from './024-repair-jobs';
@@ -55,4 +56,5 @@ export const databaseMigrations: DatabaseMigration[] = [
   repairInventoryMigration,
   repairBillingMigration,
   instagramReelsMigration,
+  websiteInsightsMigration,
 ];

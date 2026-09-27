@@ -24,7 +24,7 @@ export class CheckoutProcessor extends WorkerHost {
     return this.metrics.trackJob(CHECKOUT_QUEUE, EXPIRE_PENDING_ORDERS_JOB, async () => {
       const expired = await this.checkout.expirePendingOrders();
       this.metrics.incrementCounter(
-        'rich_culture_checkout_expired_orders_total',
+        'ifixer_checkout_expired_orders_total',
         'Pending checkout orders expired by maintenance',
         {},
         expired,

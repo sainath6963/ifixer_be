@@ -4,7 +4,7 @@ export const CUSTOMER_CSRF_COOKIE = 'rc_customer_csrf';
 export const CUSTOMER_CART_COOKIE = 'rc_cart';
 export const CUSTOMER_CSRF_HEADER = 'x-csrf-token';
 
-export const CUSTOMER_JWT_ISSUER = 'rich-culture-api';
+export const CUSTOMER_JWT_ISSUER = 'ifixer-api';
 export const CUSTOMER_JWT_AUDIENCE = 'rich-culture-customer';
 
 export const CUSTOMER_ACCESS_SECURITY = 'customerAccessCookie';

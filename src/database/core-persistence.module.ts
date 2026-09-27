@@ -1,4 +1,5 @@
 import { InstagramReel, InstagramReelSchema } from './schemas/instagram-reel.schema';
+import { WebsiteEvent, WebsiteEventSchema } from './schemas/website-event.schema';
 import {
   RepairBillingSettings,
   RepairBillingSettingsSchema,
@@ -123,6 +124,7 @@ import {
 } from './schemas/wishlist.schema';
 
 export const coreModelDefinitions = [
+  { name: WebsiteEvent.name, schema: WebsiteEventSchema },
   { name: InstagramReel.name, schema: InstagramReelSchema },
   { name: RepairBillingSettings.name, schema: RepairBillingSettingsSchema },
   { name: RepairInvoice.name, schema: RepairInvoiceSchema },

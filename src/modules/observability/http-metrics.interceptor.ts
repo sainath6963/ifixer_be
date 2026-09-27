@@ -36,12 +36,12 @@ export class HttpMetricsInterceptor implements NestInterceptor {
         const status = String(errorStatus ?? response.statusCode);
         const completedLabels = { ...labels, status };
         this.metrics.incrementCounter(
-          'rich_culture_http_requests_total',
+          'ifixer_http_requests_total',
           'Completed HTTP requests by bounded route and status',
           completedLabels,
         );
         this.metrics.observeHistogram(
-          'rich_culture_http_request_duration_seconds',
+          'ifixer_http_request_duration_seconds',
           'HTTP request duration in seconds',
           completedLabels,
           (performance.now() - startedAt) / 1000,

@@ -6,6 +6,8 @@ const expectProduction = process.env.ACCEPTANCE_EXPECT_PRODUCTION !== 'false';
 const checkStorefront = process.env.ACCEPTANCE_CHECK_STOREFRONT !== 'false';
 const metricsToken = process.env.ACCEPTANCE_METRICS_TOKEN?.trim() || '';
 const expectedRelease = process.env.ACCEPTANCE_EXPECT_RELEASE?.trim() || '';
+const expectedApiName = process.env.ACCEPTANCE_API_NAME?.trim() || 'iFixer API';
+const metricsPrefix = process.env.ACCEPTANCE_METRICS_PREFIX?.trim() || 'ifixer';
 const corsOrigin =
   process.env.ACCEPTANCE_CORS_ORIGIN?.trim() || (checkStorefront ? baseUrl.origin : '');
 const timeoutMs = boundedInteger('ACCEPTANCE_TIMEOUT_MS', 10_000, 1_000, 30_000);
@@ -52,7 +54,7 @@ assertHeader(metadata, 'referrer-policy', /^no-referrer$/i);
 assertHeader(metadata, 'cache-control', /no-store/i);
 assert(!metadata.headers.has('x-powered-by'), 'API exposes X-Powered-By');
 const metadataBody = await json(metadata, 'API metadata');
-assert(metadataBody.name === 'Rich Culture API', 'Unexpected API identity');
+assert(metadataBody.name === expectedApiName, 'Unexpected API identity');
 pass('API identity and security headers');
 
 const live = await request(`/${apiPrefix}/health/live`);
@@ -82,7 +84,10 @@ const metrics = await request(`/${apiPrefix}/metrics`, {
 if (metricsToken) {
   assert(metrics.status === 200, `Authenticated metrics returned HTTP ${metrics.status}`);
   const body = await metrics.text();
-  assert(body.includes('# TYPE rich_culture_build_info gauge'), 'Metrics build info is missing');
+  assert(
+    body.includes(`# TYPE ${metricsPrefix}_build_info gauge`),
+    'Metrics build info is missing',
+  );
   if (expectedRelease) {
     assert(body.includes(`release="${expectedRelease}"`), 'Metrics release does not match');
   }

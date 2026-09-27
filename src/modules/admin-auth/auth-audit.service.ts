@@ -31,7 +31,8 @@ export interface AuthAuditEvent {
     | 'NOTIFICATION'
     | 'OUTBOX_EVENT'
     | 'COUPON'
-    | 'PRODUCT_REVIEW';
+    | 'PRODUCT_REVIEW'
+    | 'WEBSITE_SETTING';
   resourceId: string;
   actorId?: string;
   context?: AuthRequestContext;

@@ -30,7 +30,7 @@ export class ReturnProcessor extends WorkerHost {
         EXCHANGE_RESERVATION_BATCH_SIZE,
       );
       this.metrics.incrementCounter(
-        'rich_culture_exchange_reservations_expired_total',
+        'ifixer_exchange_reservations_expired_total',
         'Exchange reservations expired by maintenance',
         {},
         expired,

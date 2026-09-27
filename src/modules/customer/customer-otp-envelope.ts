@@ -1,7 +1,7 @@
 import { createCipheriv, createDecipheriv, createHmac, randomBytes } from 'node:crypto';
 
 const ENVELOPE_VERSION = 'v1';
-const KEY_CONTEXT = 'rich-culture/customer-mobile-otp-envelope/v1';
+const KEY_CONTEXT = 'ifixer/customer-mobile-otp-envelope/v1';
 
 function encryptionKey(secret: string): Buffer {
   return createHmac('sha256', secret).update(KEY_CONTEXT).digest();

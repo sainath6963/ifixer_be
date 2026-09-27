@@ -35,7 +35,7 @@ export class MetricsService {
   private readonly histograms = new Map<string, HistogramFamily>();
 
   constructor(config: ConfigService) {
-    this.replaceGauge('rich_culture_build_info', 'Application release metadata', [
+    this.replaceGauge('ifixer_build_info', 'Application release metadata', [
       {
         labels: {
           release: config.getOrThrow<string>('APP_RELEASE'),
@@ -104,12 +104,12 @@ export class MetricsService {
     } finally {
       const labels = { queue, job, outcome };
       this.incrementCounter(
-        'rich_culture_queue_job_runs_total',
+        'ifixer_queue_job_runs_total',
         'Completed background job runs by outcome',
         labels,
       );
       this.observeHistogram(
-        'rich_culture_queue_job_duration_seconds',
+        'ifixer_queue_job_duration_seconds',
         'Background job execution duration in seconds',
         labels,
         (performance.now() - startedAt) / 1000,

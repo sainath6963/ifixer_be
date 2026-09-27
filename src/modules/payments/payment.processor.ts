@@ -56,7 +56,7 @@ export class PaymentProcessor extends WorkerHost {
 
   private recordOutcome(entity: string, outcome: string, count: number): void {
     this.metrics.incrementCounter(
-      'rich_culture_payment_reconciliation_records_total',
+      'ifixer_payment_reconciliation_records_total',
       'Payment and refund records handled by reconciliation outcome',
       { entity, outcome },
       count,

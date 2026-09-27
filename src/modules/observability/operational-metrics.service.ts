@@ -71,7 +71,7 @@ export class OperationalMetricsService {
       this.safely('media_storage', () => this.refreshMediaStorage()),
     ]);
     this.metrics.replaceGauge(
-      'rich_culture_metrics_last_scrape_timestamp_seconds',
+      'ifixer_metrics_last_scrape_timestamp_seconds',
       'Unix timestamp of the latest metrics collection attempt',
       [{ labels: {}, value: Date.now() / 1000 }],
     );
@@ -80,17 +80,17 @@ export class OperationalMetricsService {
   private refreshProcess(): void {
     const memory = process.memoryUsage();
     this.metrics.replaceGauge(
-      'rich_culture_process_uptime_seconds',
+      'ifixer_process_uptime_seconds',
       'Application process uptime in seconds',
       [{ labels: {}, value: process.uptime() }],
     );
     this.metrics.replaceGauge(
-      'rich_culture_process_resident_memory_bytes',
+      'ifixer_process_resident_memory_bytes',
       'Application resident memory in bytes',
       [{ labels: {}, value: memory.rss }],
     );
     this.metrics.replaceGauge(
-      'rich_culture_process_heap_used_bytes',
+      'ifixer_process_heap_used_bytes',
       'Application heap memory in use in bytes',
       [{ labels: {}, value: memory.heapUsed }],
     );
@@ -130,7 +130,7 @@ export class OperationalMetricsService {
       notificationGroups.map((group) => [`${group._id.channel}:${group._id.status}`, group.count]),
     );
     this.metrics.replaceGauge(
-      'rich_culture_notification_records',
+      'ifixer_notification_records',
       'Durable notification records by channel and status',
       Object.values(NotificationChannel).flatMap((channel) =>
         Object.values(NotificationStatus).map((status) => ({
@@ -140,30 +140,30 @@ export class OperationalMetricsService {
       ),
     );
     this.replaceGroupedGauge(
-      'rich_culture_outbox_events',
+      'ifixer_outbox_events',
       'Transactional outbox events by status',
       Object.values(OutboxStatus),
       outboxGroups,
     );
     this.replaceGroupedGauge(
-      'rich_culture_payment_attempts',
+      'ifixer_payment_attempts',
       'Payment attempts by status',
       Object.values(PaymentAttemptStatus),
       paymentGroups,
     );
     this.replaceGroupedGauge(
-      'rich_culture_refunds',
+      'ifixer_refunds',
       'Refund records by status',
       Object.values(RefundStatus),
       refundGroups,
     );
     this.metrics.replaceGauge(
-      'rich_culture_delivery_exceptions',
+      'ifixer_delivery_exceptions',
       'Orders currently in a shipment delivery exception',
       [{ labels: {}, value: deliveryExceptions }],
     );
     this.metrics.replaceGauge(
-      'rich_culture_overdue_exchange_reservations',
+      'ifixer_overdue_exchange_reservations',
       'Approved exchange reservations past their expiry time',
       [{ labels: {}, value: overdueExchanges }],
     );
@@ -186,7 +186,7 @@ export class OperationalMetricsService {
       }),
     );
     this.metrics.replaceGauge(
-      'rich_culture_queue_jobs',
+      'ifixer_queue_jobs',
       'BullMQ jobs by queue and state',
       samples.flat(),
     );
@@ -195,7 +195,7 @@ export class OperationalMetricsService {
   private async refreshMediaStorage(): Promise<void> {
     const filesystem = await statfs(this.mediaRoot);
     this.metrics.replaceGauge(
-      'rich_culture_media_storage_free_bytes',
+      'ifixer_media_storage_free_bytes',
       'Free bytes on the media-storage filesystem',
       [{ labels: {}, value: filesystem.bavail * filesystem.bsize }],
     );
@@ -220,7 +220,7 @@ export class OperationalMetricsService {
       await operation();
     } catch {
       this.metrics.incrementCounter(
-        'rich_culture_metrics_collection_errors_total',
+        'ifixer_metrics_collection_errors_total',
         'Metrics collection failures by bounded source',
         { source },
       );
